@@ -29,7 +29,8 @@ public class UserController {
 		
 		//ユーザーを一括取得
 		List<User> users = userRepository.findAll();
-		System.out.println(userService.makeUserId());
+		
+//		System.out.println(userService.makeUserId());
 		
 		//取得したリストをテンプレートに渡す
 		model.addAttribute("users", users);
@@ -52,12 +53,12 @@ public class UserController {
 	// 新規userの情報がuserFormに渡される
 	public String registerUser(UserForm userForm) {
 		User user = new User();
-		user.setId(userForm.getId());
+		user.setId(userService.makeUserId());
 		user.setName(userForm.getName());
 		user.setPassword(userForm.getPassword());
 		user.setBirthday(userForm.getBirthday());
 		user.setGender(userForm.getGender());
-		user.setCreatedate(userForm.getCreatedate());
+		user.setCreatedate(userService.getLocalDate());
 		
 		// データベースに保存
 		userRepository.save(user);
