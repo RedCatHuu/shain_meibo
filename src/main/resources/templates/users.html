@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Users</title>
+	</head>
+	
+	<body>
+		<h1>社員一覧</h1>
+		<table>
+			<tr>
+				<th>社員ID</th>
+				<th>名前</th>
+				<th>性別</th>
+				<th>生年月日</th>
+			</tr>
+			<tr th:each="user : ${users}">
+				<td th:text="${user.id}"></td>
+				<td th:text="${user.name}"></td>
+				<td th:text="${user.gender}"></td>
+				<td th:text="${user.birthday}"></td>
+			</tr>
+		</table>
+		
+<!--		社員登録画面へ遷移-->
+		<a th:href="@{/new}">社員登録</a>
+		
+	</body>
+	
+</html>

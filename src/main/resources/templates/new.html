@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Users</title>
+	</head>
+	
+	<body>
+		<h1>社員登録</h1>
+		
+<!--		urlが/newのpostを呼び出す-->
+		<form th:object="${userForm}" th:action="@{/new}" th:method="post">
+			<table>
+				<tr>
+					<th>id</th>
+					<th>名前</th>
+					<th>パス</th>
+					<th>誕生日</th>
+					<th>性別</th>
+					<th>作成日</th>
+					<th>更新日</th>
+					<th>削除日</th>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" th:field="*{id}">
+					</td>
+					<td>
+						<input type="text" th:field="*{name}">
+					</td>
+					<td>
+						<input type="text" th:field="*{password}">
+					</td>
+					<td>
+						<input type="text" th:field="*{birthday}">
+					</td>
+					<td>
+						<input type="text" th:field="*{gender}">
+					</td>
+					<td>
+						<input type="text" th:field="*{createdate}">
+					</td>
+					<td>
+						<input type="text" th:field="*{updatedate}">
+					</td>
+					<td>
+						<input type="text" th:field="*{update_date}">
+					</td>
+				</tr>
+			</table>
+			<input type="submit" value="登録">
+		</form>
+	</body>
+	
+</html>
