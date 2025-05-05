@@ -12,28 +12,32 @@
 		<form th:object="${userForm}" th:action="@{/new}" th:method="post">
 			<table>
 				<tr>
-					<th>名前</th>
-					<th>パス</th>
-					<th>誕生日</th>
-					<th>性別</th>
+					<td>
+						<input type="text" th:field="*{name}" placeholder="名前">
+					</td>
+					<td>
+						<input type="text" th:field="*{password}" placeholder="パスワード">
+					</td>
+					<td>
+						<input type="text" th:field="*{birthday}" placeholder="誕生日">
+					</td>
+					<td>
+						<label>
+							<input type="radio" th:field="*{gender}" value="1" checked="checked">男
+						</label>
+						<label>
+							<input type="radio" th:field="*{gender}" value="2">女
+						</label>
+					</td>
+					<td>
+						<input type="submit" value="登録">
+					</td>
 				</tr>
-				<tr>
-					<td>
-						<input type="text" th:field="*{name}">
-					</td>
-					<td>
-						<input type="text" th:field="*{password}">
-					</td>
-					<td>
-						<input type="text" th:field="*{birthday}">
-					</td>
-					<td>
-						<input type="text" th:field="*{gender}">
-					</td>
-				</tr>
-			</table>
-			<input type="submit" value="登録">
+			</table>			
 		</form>
+		
+<!--		社員一覧へのリンク-->
+		<a th:href="@{/}">戻る</a>
 	</body>
 	
 </html>

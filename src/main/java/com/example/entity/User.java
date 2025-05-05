@@ -23,6 +23,13 @@ public class User {
 	private LocalDate updatedate;
 	private LocalDate update_date;
 	
+	public String showGender() {
+		if(this.gender.equals("1")) {
+			return "男";
+		}else {
+			return "女";
+		}
+	}
 
 }
 //

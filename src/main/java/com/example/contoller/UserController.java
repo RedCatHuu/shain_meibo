@@ -30,7 +30,7 @@ public class UserController {
 		//ユーザーを一括取得
 		List<User> users = userRepository.findAll();
 		
-//		System.out.println(userService.makeUserId());
+//		System.out.println(users);
 		
 		//取得したリストをテンプレートに渡す
 		model.addAttribute("users", users);
