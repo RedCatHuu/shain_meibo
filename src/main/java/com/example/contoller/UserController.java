@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.entity.User;
 import com.example.form.UserForm;
@@ -51,7 +52,7 @@ public class UserController {
 	// 社員登録処理画面
 	@PostMapping("/new")
 	// 新規userの情報がuserFormに渡される
-	public String registerUser(UserForm userForm) {
+	public ModelAndView registerUser(UserForm userForm) {		
 		User user = new User();
 		user.setId(userService.makeUserId());
 		user.setName(userForm.getName());
@@ -63,9 +64,14 @@ public class UserController {
 		// データベースに保存
 		userRepository.save(user);
 		
-		return "/registered";
-//		return "redirect:/users";
-		
+		// 登録完了画面に渡すためのモデルの作成
+		ModelAndView mod = new ModelAndView();
+		// どのviewに渡すか
+		mod.setViewName("registered");
+		// ("viewでの名前", 渡すインスタンス)
+		mod.addObject("user", user);		
+				
+		return mod;		
 		
 	}
 	

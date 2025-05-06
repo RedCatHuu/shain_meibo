@@ -7,6 +7,24 @@
 	
 	<body>
 		<h1>登録完了</h1>
+		<table>
+			
+		</table>
+		<div>
+			<span>社員番号：</span><span th:text="${user.id}"></span>
+		</div>
+		<div>
+			<span>名前：</span><span th:text="${user.name}"></span>
+		</div>
+		<div>
+			<span>パスワード：</span><span th:text="${user.password}"></span>
+		</div>
+		<div>
+			<span>性別：</span><span th:text="${user.showGender()}"></span>
+		</div>
+		<div>
+			<span>生年月日：</span><span th:text="${user.showBirthday()}"></span>
+		</div>
 		
 <!--		社員名簿一覧へ-->
 		<a th:href="@{/}">社員名簿一覧へ</a>

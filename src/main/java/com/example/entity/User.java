@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,6 +30,11 @@ public class User {
 		}else {
 			return "女";
 		}
+	}
+	
+	public String showBirthday() {
+		String strDate = this.birthday.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		return strDate;
 	}
 
 }
