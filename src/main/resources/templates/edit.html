@@ -9,7 +9,7 @@
 		<h1>社員登録</h1>
 		
 <!--		urlが/newのpostを呼び出す-->
-		<form th:object="${userForm}" th:action="@{/new}" th:method="post">
+		<form th:object="${user}" th:action="@{/new}" th:method="post">
 			<table>
 				<tr>
 					<td>
@@ -30,14 +30,14 @@
 						</label>
 					</td>
 					<td>
-						<input type="submit" value="登録">
+						<input type="submit" value="更新">
 					</td>
 				</tr>
 			</table>			
 		</form>
 		
 <!--		社員一覧へのリンク-->
-		<a th:href="@{/}">戻る</a>
+		<a th:href="@{/}">社員名簿一覧へ</a>
 	</body>
 	
 </html>

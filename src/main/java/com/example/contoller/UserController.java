@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -64,7 +65,7 @@ public class UserController {
 		// データベースに保存
 		userRepository.save(user);
 		
-		// 登録完了画面に渡すためのモデルの作成
+		// 登録完了画面に渡すためのモデルの作成 modelクラスを使用しても同じ
 		ModelAndView mod = new ModelAndView();
 		// どのviewに渡すか
 		mod.setViewName("registered");
@@ -80,6 +81,15 @@ public class UserController {
 	public String registerd() {
 		return "registered";
 		
+	}
+	
+	// 更新画面
+	@GetMapping("/edit/{id}")
+	public String showEditForm(@PathVariable String id, Model model) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + id));
+		model.addAttribute("user", user);
+		return "/edit";
 	}
 	
 	
