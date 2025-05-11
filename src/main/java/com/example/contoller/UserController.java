@@ -92,5 +92,28 @@ public class UserController {
 		return "/edit";
 	}
 	
+	@PostMapping("/update")
+	// 新規userの情報がuserFormに渡される
+	public String updateUser(User updatedUser, Model model) {
+		System.out.println(updatedUser);
+		// userのidを取得し、編集前のuserに編集後の情報を代入
+		String id = updatedUser.getId();
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + id));
+		
+		user.setName(updatedUser.getName());
+		user.setPassword(updatedUser.getPassword());
+		user.setBirthday(updatedUser.getBirthday());
+		user.setGender(updatedUser.getGender());
+		user.setUpdatedate(userService.getLocalDate());
+		
+		// データベースに保存
+		userRepository.save(user);
+		
+		model.addAttribute("user", user);
+				
+		return "updatedUser";		
+		
+	}
 	
 }

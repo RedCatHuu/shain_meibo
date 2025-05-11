@@ -8,10 +8,11 @@
 	<body>
 		<h1>社員登録</h1>
 		
-<!--		urlが/newのpostを呼び出す-->
-		<form th:object="${user}" th:action="@{/new}" th:method="post">
+<!--		urlが/updateのpostを呼び出す-->
+		<form th:object="${user}" th:action="@{/update}" th:method="post">
 			<table>
 				<tr>
+					<input type="hidden" th:field="*{id}"/>
 					<td>
 						<input type="text" th:field="*{name}" placeholder="名前">
 					</td>
