@@ -37,6 +37,11 @@
 			</table>			
 		</form>
 		
+		<form th:object="${user}" th:action="@{/delete}" th:method="post">
+			<input type="hidden" th:field="*{id}"/>
+			<input type="submit" value="削除">
+		</form>
+		
 <!--		社員一覧へのリンク-->
 		<a th:href="@{/}">社員名簿一覧へ</a>
 	</body>

@@ -52,7 +52,7 @@ public class UserController {
 	
 	// 社員登録処理画面
 	@PostMapping("/new")
-	// 新規userの情報がuserFormに渡される
+	// viewで入力された新規userの情報がuserFormに渡される
 	public ModelAndView registerUser(UserForm userForm) {		
 		User user = new User();
 		user.setId(userService.makeUserId());
@@ -114,6 +114,13 @@ public class UserController {
 				
 		return "updatedUser";		
 		
+	}
+	
+	@PostMapping("/delete")
+	public String deleteUser(User user) {
+		System.out.print(user);
+		userRepository.deleteById(user.getId());
+		return "redirect:/";
 	}
 	
 }
