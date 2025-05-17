@@ -7,6 +7,15 @@
 	
 	<body>
 		<h1>社員一覧</h1>
+<!--		検索窓-->
+		<div>
+			<form th:object="${userForm}" th:action="@{/search}" th:method="post">
+				<input type="text" th:field="*{name}">
+				<input type="submit" value="検索">
+			</form>
+		</div>
+		
+<!--		社員一覧表示-->
 		<table>
 			<tr>
 				<th>社員ID</th>

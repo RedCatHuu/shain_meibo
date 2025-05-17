@@ -17,6 +17,8 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	//　社員ID生成機能
+	//　なおこの方法だと、1つでもレコードを削除すると生成機能が働かなくなる。
+	//　仕様通りなので仕方ないが。
 	public String makeUserId() {
 		
 		// 変数初期化
@@ -42,6 +44,11 @@ public class UserService {
 	// 日付取得機能
 	public LocalDate getLocalDate() {
 		return LocalDate.now();
+	}
+	
+	// 名前検索機能
+	public List<User> searchByName(String name) {
+		return userRepository.findByNameContaining(name);
 	}
 	
 

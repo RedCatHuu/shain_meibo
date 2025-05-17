@@ -37,7 +37,21 @@ public class UserController {
 		//取得したリストをテンプレートに渡す
 		model.addAttribute("users", users);
 		
+		// 検索用モデル
+		model.addAttribute("userForm", new UserForm());
+		
 		//テンプレート"users"を返す
+		return "users";
+	}
+	
+	// 社員一覧画面の検索機能
+	@PostMapping("/search")
+	public String search(Model model, UserForm form) {
+		List<User> users = userService.searchByName(form.getName());
+		System.out.println(form);
+		model.addAttribute("users", users);
+		model.addAttribute("userForm", new UserForm());
+		
 		return "users";
 	}
 	
