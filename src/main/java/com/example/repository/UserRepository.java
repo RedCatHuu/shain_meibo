@@ -15,7 +15,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 	
 	// アクティブな社員一覧を取得
 	// update_dateの"_"がスペースと認識されるため、
-	// findByUpdate_dateNullではなく、クエリを書かないといけない
+	// findByUpdate_dateNullではなく、クエリを書かないといけない(JPQL)
+	// FROMの後は、テーブル名ではなく、entityを使用。
 	@Query("SELECT u FROM User u WHERE u.update_date IS NULL")
 	List<User> allEmp();
 	

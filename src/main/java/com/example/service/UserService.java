@@ -68,5 +68,17 @@ public class UserService {
 	public void save(User user) {
 		userRepository.save(user);		
 	}
+	
+	// ログイン判定
+	public boolean authenticate(String id, String inputPw){
+		User user = this.findById(id);
+		String pass = user.getPassword();
+		if(pass.equals(inputPw)) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
 
 }

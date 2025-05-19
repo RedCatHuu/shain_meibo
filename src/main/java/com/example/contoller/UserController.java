@@ -24,14 +24,33 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	// ログイン画面
+	@GetMapping("/login")
+	public String login(Model model) {
+		
+		UserForm form = new UserForm();
+		model.addAttribute("form", form);
+		
+		return "login";		
+	}
 	
-	//ホーム画面かつ社員一覧画面
+	@PostMapping("/login")
+	public String authenticate(UserForm form) {
+		
+		boolean authenticated = userService.authenticate(form.getId(), form.getPassword());
+		if(authenticated) {
+			return "redirect:/";
+		}else {
+			return "redirect:/login";
+		}
+	}
+	
+	// 社員一覧画面
 	@GetMapping("/")
 	public String getUsers(Model model) {
 		
 		//ユーザーを一括取得
 		List<User> users = userService.allEmp();
-		System.out.println(users);
 		
 		//取得したリストをテンプレートに渡す
 		model.addAttribute("users", users);
@@ -48,7 +67,6 @@ public class UserController {
 	public String search(Model model, UserForm form) {
 		
 		List<User> users = userService.searchByName(form.getName());
-		System.out.println(form);
 		model.addAttribute("users", users);
 		
 		// 検索履歴残るように修正
