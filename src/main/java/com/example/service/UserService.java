@@ -41,6 +41,12 @@ public class UserService {
 		
 	}
 	
+	// 削除されていない社員一覧
+	public List<User> allEmp(){
+		List<User> users = userRepository.allEmp();
+		return users;
+	}
+	
 	// 日付取得機能
 	public LocalDate getLocalDate() {
 		return LocalDate.now();
@@ -51,5 +57,16 @@ public class UserService {
 		return userRepository.findByNameContaining(name);
 	}
 	
+	// id検索機能
+	public User findById(String id) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + id));;
+		return user;
+	}
+	
+	// DB操作の保存
+	public void save(User user) {
+		userRepository.save(user);		
+	}
 
 }

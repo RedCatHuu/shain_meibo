@@ -30,9 +30,8 @@ public class UserController {
 	public String getUsers(Model model) {
 		
 		//ユーザーを一括取得
-		List<User> users = userRepository.findAll();
-		
-//		System.out.println(users);
+		List<User> users = userService.allEmp();
+		System.out.println(users);
 		
 		//取得したリストをテンプレートに渡す
 		model.addAttribute("users", users);
@@ -47,10 +46,13 @@ public class UserController {
 	// 社員一覧画面の検索機能
 	@PostMapping("/search")
 	public String search(Model model, UserForm form) {
+		
 		List<User> users = userService.searchByName(form.getName());
 		System.out.println(form);
 		model.addAttribute("users", users);
-		model.addAttribute("userForm", new UserForm());
+		
+		// 検索履歴残るように修正
+		model.addAttribute("userForm", form);
 		
 		return "users";
 	}
@@ -58,6 +60,7 @@ public class UserController {
 	// 社員登録画面
 	@GetMapping("/new")
 	public String post(Model model) {
+		
 		UserForm userForm = new UserForm();
 		model.addAttribute("userForm", userForm);
 		
@@ -67,7 +70,8 @@ public class UserController {
 	// 社員登録処理画面
 	@PostMapping("/new")
 	// viewで入力された新規userの情報がuserFormに渡される
-	public ModelAndView registerUser(UserForm userForm) {		
+	public ModelAndView registerUser(UserForm userForm) {
+		
 		User user = new User();
 		user.setId(userService.makeUserId());
 		user.setName(userForm.getName());
@@ -77,8 +81,7 @@ public class UserController {
 		user.setCreatedate(userService.getLocalDate());
 		
 		// データベースに保存
-		userRepository.save(user);
-		
+		userService.save(user);
 		// 登録完了画面に渡すためのモデルの作成 modelクラスを使用しても同じ
 		ModelAndView mod = new ModelAndView();
 		// どのviewに渡すか
@@ -100,20 +103,21 @@ public class UserController {
 	// 更新画面
 	@GetMapping("/edit/{id}")
 	public String showEditForm(@PathVariable String id, Model model) {
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + id));
+		
+		User user = userService.findById(id);
 		model.addAttribute("user", user);
+		
 		return "/edit";
 	}
 	
+	// 更新処理
 	@PostMapping("/update")
 	// 新規userの情報がuserFormに渡される
 	public String updateUser(User updatedUser, Model model) {
-		System.out.println(updatedUser);
+		
 		// userのidを取得し、編集前のuserに編集後の情報を代入
 		String id = updatedUser.getId();
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + id));
+		User user = userService.findById(id);
 		
 		user.setName(updatedUser.getName());
 		user.setPassword(updatedUser.getPassword());
@@ -132,8 +136,11 @@ public class UserController {
 	
 	@PostMapping("/delete")
 	public String deleteUser(User user) {
-		System.out.print(user);
-		userRepository.deleteById(user.getId());
+		
+		User targetUser = userService.findById(user.getId());
+		targetUser.setUpdate_date(userService.getLocalDate());
+		userService.save(targetUser);
+		
 		return "redirect:/";
 	}
 	

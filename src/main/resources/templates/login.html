@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Users</title>
+	</head>
+	
+	<body>
+		<h1>社員登録</h1>
+		
+<!--		urlが/updateのpostを呼び出す-->
+		<form th:object="${user}" th:action="@{/update}" th:method="post">
+			<table>
+				<tr>
+					<input type="hidden" th:field="*{id}"/>
+					<td>
+						<input type="text" th:field="*{name}" placeholder="名前">
+					</td>
+					<td>
+						<input type="text" th:field="*{password}" placeholder="パスワード">
+					</td>
+					<td>
+						<input type="text" th:field="*{birthday}" placeholder="誕生日">
+					</td>
+					<td>
+						<label>
+							<input type="radio" th:field="*{gender}" value="1">男
+						</label>
+						<label>
+							<input type="radio" th:field="*{gender}" value="2">女
+						</label>
+					</td>
+					<td>
+						<input type="submit" value="更新">
+					</td>
+				</tr>
+			</table>			
+		</form>
+		
+		<form th:object="${user}" th:action="@{/delete}" th:method="post">
+			<input type="hidden" th:field="*{id}"/>
+			<input type="submit" value="削除">
+		</form>
+		
+<!--		社員一覧へのリンク-->
+		<a th:href="@{/}">社員名簿一覧へ</a>
+	</body>
+	
+</html>
