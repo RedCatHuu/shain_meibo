@@ -34,6 +34,7 @@ public class UserController {
 		return "login";		
 	}
 	
+	// ログイン機能
 	@PostMapping("/login")
 	public String authenticate(UserForm form) {
 		

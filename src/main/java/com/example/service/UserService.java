@@ -17,8 +17,6 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	//　社員ID生成機能
-	//　なおこの方法だと、1つでもレコードを削除すると生成機能が働かなくなる。
-	//　仕様通りなので仕方ないが。
 	public String makeUserId() {
 		
 		// 変数初期化
